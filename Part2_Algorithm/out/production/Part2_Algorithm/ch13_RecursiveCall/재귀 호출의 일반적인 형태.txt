@@ -1,0 +1,16 @@
+// 형태1
+function(입력) {
+	if (입력 > 일정값) {
+		return function(입력-1);
+	} else{
+		return 특정값;
+	}
+}
+
+// 형태2
+function(입력) {
+	if (입력 <= 일정값) {
+		return 특정값;
+	}
+	return function(입력-1);
+}
