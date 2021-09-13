@@ -48,6 +48,13 @@ public class BOJ11652 {
 
         System.out.println(mode);
     }
+
+    public static void main(String[] args) {
+        input();
+        pro();
+    }
+
+
     static class FastReader {
         BufferedReader br;
         StringTokenizer st;

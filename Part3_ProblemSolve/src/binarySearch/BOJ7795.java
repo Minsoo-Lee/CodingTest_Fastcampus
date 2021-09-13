@@ -1,56 +1,58 @@
-package sort;
+package binarySearch;
 
 import java.io.*;
 import java.util.Arrays;
 import java.util.StringTokenizer;
 
-public class BOJ10825 {
+public class BOJ7795 {
     static FastReader scan = new FastReader();
     static StringBuilder sb = new StringBuilder();
 
-    static class Elem implements Comparable<Elem> {
-        public String name;
-        public int korean, english, math;
-
-        @Override
-        public int compareTo(Elem o) {
-            // 국어 내림차순
-            if (korean != o.korean) return o.korean - korean;
-            // 영어 오름차순
-            if (english != o.english) return english - o.english;
-            // 수학 내림차순
-            if (math != o.math) return o.math - math;
-            // 문자열 비교는 이렇게!
-            return name.compareTo(o.name);
-        }
-    }
-
-    static int N;
-    static Elem[] a;
+    static int N, M;
+    static int[] A, B;
 
     static void input() {
         N = scan.nextInt();
-        a = new Elem[N];
-        for (int i=0; i<N; i++) {
-            a[i] = new Elem();
-            a[i].name = scan.next();
-            a[i].korean = scan.nextInt();
-            a[i].math = scan.nextInt();
+        M = scan.nextInt();
+        A = new int[N + 1];
+        B = new int[M + 1];
+        for (int i = 1; i <= N; i++) {
+            A[i] = scan.nextInt();
         }
+        for (int i = 1; i <= M; i++) {
+            B[i] = scan.nextInt();
+        }
+    }
+
+    static int lower_bound(int[] A, int L, int R, int X) {
+        int result = L - 1;
+        while (L <= R) {
+            int mid = (L + R) / 2;
+            if (A[mid] < X) {
+                result = mid;
+                L = mid = 1;
+            } else if (A[mid] >= X){
+                R = mid - 1;
+            }
+        }
+        return result;
     }
 
     static void pro() {
-        Arrays.sort(a);
-
-        for (int i=0; i<a.length; i++) {
-            sb.append(a[i].name).append('\n');
+        Arrays.sort(B, 1, M+1);
+        int ans = 0;
+        for (int i=1; i<=N; i++) {
+            ans += lower_bound(B, 1, M, A[i]);
         }
-        System.out.println(sb.toString());
     }
 
     public static void main(String[] args) {
-        input();
-        pro();
+        int TT;
+        TT = scan.nextInt();
+        for (int tt = 1; tt <= TT; tt++) {
+            input();
+            pro();
+        }
     }
 
     static class FastReader {
@@ -64,7 +66,6 @@ public class BOJ10825 {
         public FastReader(String s) throws FileNotFoundException {
             br = new BufferedReader(new FileReader(new File(s)));
         }
-
         String next() {
             while (st == null || !st.hasMoreElements()) {
                 try {
@@ -98,5 +99,4 @@ public class BOJ10825 {
             return str;
         }
     }
-
 }

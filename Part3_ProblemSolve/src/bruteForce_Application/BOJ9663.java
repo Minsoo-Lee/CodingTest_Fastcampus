@@ -52,7 +52,8 @@ public class BOJ9663 {
     public static void main(String[] args) {
         input();
 
-
+        rec_func(1);
+        System.out.println(ans);
     }
 
     static class FastReader {

@@ -43,6 +43,12 @@ public class BOJ1015 {
         }
         System.out.println(sb.toString());
     }
+
+    public static void main(String[] args) {
+        input();
+        pro();
+    }
+
     static class FastReader {
         BufferedReader br;
         StringTokenizer st;

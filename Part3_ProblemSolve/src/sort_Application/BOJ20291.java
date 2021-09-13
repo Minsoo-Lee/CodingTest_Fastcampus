@@ -62,6 +62,11 @@ public class BOJ20291 {
         System.out.println(ans);
     }
 
+    public static void main(String[] args) {
+        input();
+        pro();
+    }
+
     static class FastReader {
         BufferedReader br;
         StringTokenizer st;

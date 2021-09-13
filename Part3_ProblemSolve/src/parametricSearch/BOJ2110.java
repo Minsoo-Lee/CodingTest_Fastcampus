@@ -1,51 +1,50 @@
-package sort;
+package parametricSearch;
 
 import java.io.*;
 import java.util.Arrays;
 import java.util.StringTokenizer;
 
-public class BOJ10825 {
+public class BOJ2110 {
     static FastReader scan = new FastReader();
     static StringBuilder sb = new StringBuilder();
 
-    static class Elem implements Comparable<Elem> {
-        public String name;
-        public int korean, english, math;
-
-        @Override
-        public int compareTo(Elem o) {
-            // 국어 내림차순
-            if (korean != o.korean) return o.korean - korean;
-            // 영어 오름차순
-            if (english != o.english) return english - o.english;
-            // 수학 내림차순
-            if (math != o.math) return o.math - math;
-            // 문자열 비교는 이렇게!
-            return name.compareTo(o.name);
-        }
-    }
-
-    static int N;
-    static Elem[] a;
+    static int N, C;
+    static int[] A;
 
     static void input() {
         N = scan.nextInt();
-        a = new Elem[N];
-        for (int i=0; i<N; i++) {
-            a[i] = new Elem();
-            a[i].name = scan.next();
-            a[i].korean = scan.nextInt();
-            a[i].math = scan.nextInt();
+        C = scan.nextInt();
+        A = new int[N + 1];
+        for (int i = 1; i <= N; i++) {
+            A[i] = scan.nextInt();
         }
     }
 
-    static void pro() {
-        Arrays.sort(a);
-
-        for (int i=0; i<a.length; i++) {
-            sb.append(a[i].name).append('\n');
+    static boolean determination(int D) {
+        int cnt = 1, last = A[1];
+        for (int i=2; i <= N; i++) {
+            if (A[i] - last >= D) {
+                cnt++;
+                last = A[i];
+            }
         }
-        System.out.println(sb.toString());
+        return cnt >= C;
+    }
+
+    static void pro() {
+        Arrays.sort(A, 1, N+1);
+        int L = 1, R = 1000000000, ans = 0;
+
+        while(L <= R) {
+            int mid = (L+R) / 2;
+            if (determination(mid)) {
+                ans = mid;
+                L = mid + 1;
+            } else {
+                R = mid - 1;
+            }
+        }
+        System.out.println(ans);
     }
 
     public static void main(String[] args) {
@@ -61,7 +60,7 @@ public class BOJ10825 {
             br = new BufferedReader(new InputStreamReader(System.in));
         }
 
-        public FastReader(String s) throws FileNotFoundException {
+        public FastReader(String s) throws FileNotFoundException, FileNotFoundException {
             br = new BufferedReader(new FileReader(new File(s)));
         }
 
@@ -98,5 +97,4 @@ public class BOJ10825 {
             return str;
         }
     }
-
 }
